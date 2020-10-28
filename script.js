@@ -6,22 +6,26 @@ let todoControl = document.querySelector('.todo-control'),
   todoList = document.querySelector('.todo-list'),
   todoCompleted = document.querySelector('.todo-completed');
   
-  headerButton.addEventListener('click', function() {
-    localStorage.setItem('value', headerInput.value);
-  });
+  // headerButton.addEventListener('click', function() {
+  //   localStorage.setItem('value', headerInput.value);
+  // });
+  
+let todoData = [];
+  // todoData.forEach(function(item, index) {     
+  //   item[index] = localStorage.getItem('value');  
+  // });    
 
-const todoData = [
-  {
-    value: localStorage.getItem('value'),
-    completed: false,
-  },
-];
+  // });
+  // {
+  //   value: localStorage.getItem('value'),
+  //   completed: false,
+  // },
 
 const render = function() {
   todoList.textContent = '';
-  todoCompleted.textContent = '';
+  todoCompleted.textContent = '';  
 
-  todoData.forEach(function(item) {    
+  todoData.forEach(function(item, index) {           
     let li = document.createElement('li');
     li.classList.add('todo-item');  
            
@@ -31,16 +35,13 @@ const render = function() {
                     '<button class="todo-complete"></button>' +
                   '</div>';    
 
-    if (item.value === '') return;
     
+    headerInput.value = '';
     if (item.completed) {
       todoCompleted.append(li);
     } else {    
-      todoList.append(li);
-     
-    };  
-   
-    headerInput.value = '';
+      todoList.append(li);     
+    };      
 
     const btnTodoCompleted = li.querySelector('.todo-complete');
     btnTodoCompleted.addEventListener('click', function() {
@@ -50,7 +51,9 @@ const render = function() {
 
     const btnTodoRemove = li.querySelector('.todo-remove');
     btnTodoRemove.addEventListener('click', function() {
-      li.remove();      
+      li.remove(); 
+      todoData.splice(index, 1);
+      render();     
     }); 
    
   })
@@ -58,6 +61,8 @@ const render = function() {
 
 todoControl.addEventListener('submit', function(event) {
   event.preventDefault();
+
+  if (headerInput.value === '') return;
 
   let newTodo = {
     value: headerInput.value,
@@ -69,5 +74,3 @@ todoControl.addEventListener('submit', function(event) {
 });
 
 render();
-
-
