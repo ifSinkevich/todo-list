@@ -6,14 +6,15 @@ let todoControl = document.querySelector('.todo-control'),
   todoList = document.querySelector('.todo-list'),
   todoCompleted = document.querySelector('.todo-completed');
   
-let todoData;
+// let todoData;
 // localStorage.clear();
+let todoData = JSON.parse(localStorage.getItem('todoData')) || [];
 
-if(localStorage.length > 0) {
-  todoData = JSON.parse(localStorage.getItem('todoData'));
-} else {
-  todoData = [];
-}  
+// if(localStorage.length > 0) {
+//   todoData = JSON.parse(localStorage.getItem('todoData'));
+// } else {
+//   todoData = [];
+// }  
 
 const render = function() {
   todoList.textContent = '';
